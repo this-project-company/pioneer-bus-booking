@@ -4,6 +4,9 @@ import { getAdminFromCookie } from "@/lib/auth";
 import Booking from "@/models/Booking";
 import Bus from "@/models/Bus";
 
+// Mock bus IDs that are valid without a DB connection
+const MOCK_BUS_IDS = new Set(["mock_001", "mock_002", "mock_003"]);
+
 function hasOverlap(
   existingStart: string,
   existingEnd: string,
@@ -45,11 +48,10 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    await connectDB();
     const body = await request.json();
-
     const { busId, customerPhone, startDate, endDate } = body;
 
+    // ── Shared validation (runs in both mock and DB mode) ──
     if (!busId || !customerPhone || !startDate || !endDate) {
       return NextResponse.json(
         { error: "Bus, phone, start date, and end date are required" },
@@ -71,11 +73,36 @@ export async function POST(request: NextRequest) {
 
     const today = new Date().toISOString().split("T")[0];
     if (startDate < today) {
+      return NextResponse.json({ error: "Cannot book past dates" }, { status: 400 });
+    }
+
+    // ── Mock mode — no DB needed ──
+    if (!process.env.MONGODB_URI) {
+      if (!MOCK_BUS_IDS.has(busId)) {
+        return NextResponse.json(
+          { error: "Bus not found or not available" },
+          { status: 404 }
+        );
+      }
       return NextResponse.json(
-        { error: "Cannot book past dates" },
-        { status: 400 }
+        {
+          booking: {
+            _id: `mock_bkg_${Date.now()}`,
+            busId,
+            customerPhone,
+            startDate,
+            endDate,
+            status: "pending",
+            isPaid: false,
+            createdAt: new Date().toISOString(),
+          },
+        },
+        { status: 201 }
       );
     }
+
+    // ── DB mode ──
+    await connectDB();
 
     const bus = await Bus.findById(busId);
     if (!bus || !bus.isActive) {

@@ -69,9 +69,12 @@ export function AdminNav() {
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
             </div>
-            <span className="font-bold text-slate-900">Pioneer</span>
+            <div>
+              <span className="font-bold text-slate-900 text-sm">Pioneer</span>
+              <span className="font-semibold text-slate-500 text-sm"> Holidays</span>
+            </div>
           </Link>
-          <p className="text-xs text-slate-400 mt-1 ml-9">Admin Panel</p>
+          <p className="text-xs text-slate-400 mt-0.5 ml-9">Admin · Since 1947</p>
         </div>
 
         <nav className="flex-1 px-3 py-4 space-y-1">
@@ -117,7 +120,7 @@ export function AdminNav() {
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
             </div>
-            <span className="font-bold text-slate-900">Pioneer Admin</span>
+            <span className="font-bold text-slate-900">Pioneer Holidays</span>
           </Link>
           <button onClick={() => setMobileOpen(v => !v)} className="p-2 text-slate-500 hover:text-slate-700">
             {mobileOpen ? (
