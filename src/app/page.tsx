@@ -50,7 +50,7 @@ const WHY_US = [
     desc: "75+ years of trusted service — one of Kerala's oldest travel companies.",
   },
   {
-    icon: "🕌",
+    icon: "🛕",
     title: "Pilgrimage Tours",
     desc: "Specialists in religious travel to temples, mosques, and churches across India.",
   },
@@ -130,14 +130,14 @@ function PioneerLogo({ dark = false }: { dark?: boolean }) {
     <div className="flex  items-center gap-2.5">
       <div className="flex flex-col leading-none">
         <span
-          className={`text-[1.35rem] leading-none tracking-wide ${dark ? "text-slate-900" : "text-white"}`}
+          className={`text-[1.35rem] leading-none tracking-wide ${dark ? "text-white" : "text-slate-900"}`}
           style={{ fontFamily: "var(--font-pacifico)" }}
         >
           Pioneer
         </span>
         <span
           className={`text-[8.5px] font-black tracking-[0.28em] uppercase leading-none mt-[3px] ${
-            dark ? "text-slate-400" : "text-white/60"
+            dark ? "text-white" : "text-slate-900"
           }`}
         >
           Holidays
@@ -658,7 +658,7 @@ export default function Home() {
               style={{ boxShadow: "0 4px 30px rgba(0,0,0,0.1)" }}
             >
               <PioneerLogo />
-              <div className="flex-1 text-center text-white/60 text-xs font-semibold hidden xs:block">
+              <div className="flex-1 text-center text-slate-900 text-xs font-semibold hidden xs:block">
                 Kerala Bus Charters
               </div>
               <button
@@ -1035,7 +1035,7 @@ export default function Home() {
                 desc: "Scenic Kerala getaways and pan-India touring.",
               },
               {
-                icon: "🕌",
+                icon: "🛕",
                 title: "Pilgrimage Tours",
                 desc: "Sabari, Vaishno Devi, Ajmer, Tirupati and more.",
               },
